@@ -30,15 +30,15 @@ pipeline {
                 sh 'npm run build'
             }
         }
-    // stage('DEPLOYMENT') {
-    //     steps{
-    //     echo 'UPLOADING TO AWS S3 BUCKET'
-    //     dir('/var/lib/jenkins/workspace/responsivescreen/'){
-    //        withAWS(region:'ap-south-1',credentials:'s3cred') {
-    //           s3Upload(bucket:"mydeployment-assignment", workingDir:'build', includePathPattern:'**/*');
-    //         }
-    //     }
-    // }
-    // }
+    stage('UPLOADING TO S3 BUCKET') {
+        steps{
+        echo 'UPLOADING TO S3 BUCKET'
+        dir('/var/lib/jenkins/workspace/counter_app/'){
+           withAWS(region:'us-east-2',credentials:'s3_counterapp') {
+              s3Upload(bucket:"mycounterapp", workingDir:'build', includePathPattern:'**/*');
+            }
+        }
+    }
+    }
 }
 }
